@@ -3,7 +3,7 @@ Algorithmic Problem Solving Strategies Solutions with using Haskell and Rust
 
 This sources is solution of problems in this [book](https://book.algospot.com) (in Korean)
 
-These sources are made of Rust and Haskell.
+These sources are made of Rust and Haskell (actually it's converted from C in the book).
 
 I've tried to code in functional style but it's incomplete. 
 
