@@ -1,5 +1,5 @@
 # APSS
-Algorithmic Problem Solving Strategies Solutions with using Haskell and Rust
+Algorithmic Problem Solving Strategies solutions with using Haskell and Rust
 
 This sources is solution of problems in this [book](https://book.algospot.com) (author Jongman Koo, scripted in Korean)
 
