@@ -12,8 +12,8 @@ main = do
     start <- getCurrentTime 
     --print $ recSum 100
     --pick 10 [] 3 
-    --print $ hasWord 1 1 "PRETTY"
-    print $ countPairings [False | x <- [0..9]]
+    print $ hasWord 1 1 "PRETTY"
+    --print $ countPairings [False | x <- [0..9]]
 
     end <- getCurrentTime
     print $ diffUTCTime end start
