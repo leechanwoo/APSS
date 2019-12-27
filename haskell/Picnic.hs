@@ -37,20 +37,21 @@ module Picnic where
 
     areFriends = allFriends
 
-    countPairings :: [Bool] -> Maybe Int
+    countPairings :: [Bool] -> Int
     countPairings taken = do
-        let firstFree = elemIndex False taken
-        case firstFree of
-          Nothing   -> return 1
-          Just firstFree' ->
-              fmap sum $ forM [firstFree'+1..n] $ \ pairWith -> do
-                  case (not $ taken!!pairWith) && (areFriends!!firstFree'!!pairWith) of
-                    True  -> countPairings [if i == firstFree' || i == pairWith 
+        case elemIndex False taken of
+          Nothing   -> 1
+          Just firstFree ->
+              sumLoop [firstFree+1 .. n] $ \ pairWith -> 
+                  case (not $ taken!!pairWith) && areFriends!!firstFree!!pairWith of
+                    True  -> countPairings [if i == firstFree || i == pairWith 
                                               then True 
                                               else t 
                                                 | (i, t) <- zip [0..n] taken]
-                    False -> return 0  
+                    False -> 0  
+
         where 
             n = (length taken) - 1
+            sumLoop n = sum . (flip map n) 
 
 
