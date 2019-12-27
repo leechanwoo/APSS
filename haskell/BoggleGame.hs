@@ -17,12 +17,11 @@ module BoggleGame where
       | outOfRange y x                      = False
       | board!!y!!x /= head word            = False
       | length word == 1                    = True
-      | searchLoop $ \(dx, dy) -> 
+      | search $ \(dx, dy) -> 
           hasWord (y+dy) (x+dx) (tail word) = True
       | otherwise                           = False
 
         where
             outOfRange y x = not $ 0 <= x && x < 5 && 0 <= y && y < 5
-            dxy = filter (/=(0, 0)) $ (,) <$> [-1, 0, 1] <*> [-1, 0, 1] 
-            searchLoop = elem True . (flip map dxy) 
+            search = flip any $ filter (/=(0, 0)) $ (,) <$> [-1, 0, 1] <*> [-1, 0, 1]  
 
