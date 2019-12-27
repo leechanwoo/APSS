@@ -42,8 +42,7 @@ module Picnic where
         let firstFree = elemIndex False taken
         case firstFree of
           Nothing   -> return 1
-          otherwise -> do
-              firstFree' <- firstFree
+          Just firstFree' ->
               fmap sum $ forM [firstFree'+1..n] $ \ pairWith -> do
                   case (not $ taken!!pairWith) && (areFriends!!firstFree'!!pairWith) of
                     True  -> countPairings [if i == firstFree' || i == pairWith 
@@ -53,36 +52,5 @@ module Picnic where
                     False -> return 0  
         where 
             n = (length taken) - 1
-
-
-
-    debug_countPairings :: [Bool] -> Maybe Int
-    debug_countPairings taken = do
-        let firstFree = elemIndex False taken
-        case firstFree of
-          Nothing -> do
-              traceM $ "recurssion done" 
-              return 1
-          otherwise -> do
-              firstFree' <- firstFree
-              rets <- forM [firstFree'+1..n] $ \ pairWith -> do
-                  traceM $ "ff, pw is " ++ "(" ++ show firstFree' ++  " " ++ show pairWith ++ ")"
-
-                  case (not $ taken!!pairWith) && (areFriends!!firstFree'!!pairWith) of
-                    True -> do
-                        let new_taken = [if i == firstFree' || i == pairWith then True else t | (i, t) <- zip [0..n] taken]
-                        let ret = debug_countPairings new_taken
-                        traceM $ "new_taken is " ++ show new_taken
-                        traceM $ "ret is " ++ show ret
-                        ret 
-                    False -> return 0 
-
-              traceM $ "rets: " ++ (show rets)
-              fmap sum $ return rets
-            
-        where 
-            n = (length taken) - 1
-
-
 
 

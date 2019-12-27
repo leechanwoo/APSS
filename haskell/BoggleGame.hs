@@ -23,6 +23,6 @@ module BoggleGame where
 
         where
             outOfRange y x = not $ 0 <= x && x < 5 && 0 <= y && y < 5
-            search = (elem True) . (flip map dxy)
-            dxy = filter (\(x,y) -> not (x == 0 && y == 0)) $ (,) <$> [-1, 0, 1] <*> [-1, 0, 1]
+            search = any (==True) . flip map dxy
+            dxy = filter (/=(0,0)) $ (,) <$> [-1, 0, 1] <*> [-1, 0, 1]
 
