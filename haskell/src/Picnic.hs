@@ -15,8 +15,7 @@ areFriends = [[ True,  True,  True,  True,  True,  True,  True,  True,  True,  T
              ,[ True,  True,  True,  True,  True,  True,  True,  True,  True,  True] -- 6
              ,[ True,  True,  True,  True,  True,  True,  True,  True,  True,  True] -- 7
              ,[ True,  True,  True,  True,  True,  True,  True,  True,  True,  True] -- 8
-             ,[ True,  True,  True,  True,  True,  True,  True,  True,  True,  True] -- 9
-             ]
+             ,[ True,  True,  True,  True,  True,  True,  True,  True,  True,  True]]-- 9
 
 
 countPairings :: [Bool] -> Int

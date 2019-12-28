@@ -1,8 +1,8 @@
 
 module BoardCover where
 
-import Debug.Trace (traceM)
 import Data.List
+
 
 coverType :: [[(Int, Int)]]
 coverType = [[(0, 0), (1, 0), (0, 1)]

@@ -1,30 +1,37 @@
 module Main where
 
---import Sum (recSum)
---import Combination (pick)
---import BoggleGame (hasWord)
---import Picnic (countPairings)
+import Sum (recSum)
+import Combination (pick)
+import BoggleGame (hasWord)
+import Picnic (countPairings)
 import BoardCover (cover)
 
 import Data.Time (getCurrentTime, diffUTCTime)
+import System.Environment
 
 main :: IO ()
 main = do
-    start <- getCurrentTime 
-    --print $ recSum 100
-    --pick 10 [] 3 
-    --print $ hasWord 1 1 "PRETTY"
-    --print $ countPairings [False | x <- [0..9]]
+    args <- getArgs
+    print $ "Selected Problem: " ++ (head args)
 
-    print $ cover [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-                  ,[1, 0, 0, 0, 0, 0, 0, 0, 0, 1]
-                  ,[1, 0, 0, 0, 0, 0, 0, 0, 0, 1]
-                  ,[1, 0, 0, 0, 0, 0, 0, 0, 0, 1]
-                  ,[1, 0, 0, 0, 0, 0, 0, 0, 0, 1]
-                  ,[1, 0, 0, 0, 0, 0, 0, 0, 0, 1]
-                  ,[1, 0, 0, 0, 0, 0, 0, 0, 0, 1]
-                  ,[1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
+    start <- getCurrentTime 
+    case args of 
+      [] -> print $ "Nothing run"
+      ("Sum":_)         ->  print $ recSum 100
+      ("Combine":_)     -> pick 10 [] 3 
+      ("BoggleGame":_)  -> print $ hasWord 1 1 "PRETTY"
+      ("Picnic":_)      -> print $ countPairings (take 10 $ repeat False) 
+      ("BoardCover":_)  -> print $ cover [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+                                    ,[1, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                                    ,[1, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                                    ,[1, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                                    ,[1, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                                    ,[1, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                                    ,[1, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                                    ,[1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
+
+      (_:_)              -> print $ "Invalid Input"
     
     end <- getCurrentTime
-    print $ diffUTCTime end start
+    print $ "Process time: " ++ (show $ diffUTCTime end start)
 

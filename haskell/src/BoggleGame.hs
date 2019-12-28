@@ -2,13 +2,11 @@
 module BoggleGame (hasWord) where
 
 board :: [[Char]]
-board = [
-            "URLPM"
-        ,   "XPRET"
-        ,   "GIAET"
-        ,   "XTNZY"
-        ,   "XOQRS"
-        ]
+board = [ "URLPM"
+        , "XPRET"
+        , "GIAET"
+        , "XTNZY"
+        , "XOQRS"]
 
 
 hasWord :: Int -> Int -> String -> Bool
@@ -20,10 +18,11 @@ hasWord y x word
       hasWord (y+dy) (x+dx) (tail word) = True
   | otherwise                           = False
 
-    where
-        search = flip any $ filter (/=(0, 0)) $ (,) <$> [-1, 0, 1] <*> [-1, 0, 1]  
 
 outOfRange :: Int -> Int -> Bool
 outOfRange y x = not $ 0 <= x && x < 5 && 0 <= y && y < 5
 
+
+search :: ((Int, Int) -> Bool) -> Bool
+search = flip any $ filter (/=(0, 0)) $ (,) <$> [-1, 0, 1] <*> [-1, 0, 1]
 
