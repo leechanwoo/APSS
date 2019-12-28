@@ -1,8 +1,9 @@
 
-### Sum
+## Sum
 
 sum numbers from 1 to n 
 
+### In Haskell
 ```haskell
 
 module Sum (recSum) where
@@ -13,6 +14,8 @@ recSum n = n + recSum (n-1)
 
 ```
 
+
+### In Rust
 ```rust
 pub fn recursive_sum(n: i32) -> i32 {
     match n {
