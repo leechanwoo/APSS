@@ -1,7 +1,7 @@
 
 ## Combination
 
-Search all of combinations of numbers in range of (0..n)
+Search all of combinations of numbers in range of (0..n) </br>
 The number of elements in combination could be variable 
 
 **Example** </br>
