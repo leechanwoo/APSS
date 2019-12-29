@@ -1,31 +1,26 @@
 
 
-
-/*
-const COVERTYPE: [[(i32, i32); 3]; 4] = [[(0, 0), (1, 0), (0, 1)],
-                                         [(0, 0), (1, 0), (1, 1)],
-                                         [(0, 0), (0, 1), (1, 1)],
-                                         [(0, 0), (1, 0), (1,-1)]];
-                                         */
-
 enum Offset {
     Neg(usize),
     Pos(usize),
 }
 
-const COVERTYPE: [[(Offset, Offset); 3]; 4] = [[(Pos(0), Pos(0)), (Pos(1), Pos(0)), (Pos(0), Pos(1))],
-                                               [(Pos(0), Pos(0)), (Pos(0), Pos(0)), (Pos(1), Pos(1))],
-                                               [(Pos(0), Pos(0)), (Pos(0), Pos(1)), (Pos(1), Pos(1))],
-                                               [(Pos(0), Pos(0)), (Pos(1), Pos(0)), (Pos(1), Neg(1))]];
+const COVERTYPE: [[(Offset, Offset); 3]; 4] = [
+    [(Offset::Pos(0), Offset::Pos(0)), (Offset::Pos(1), Offset::Pos(0)), (Offset::Pos(0), Offset::Pos(1))], 
+    [(Offset::Pos(0), Offset::Pos(0)), (Offset::Pos(0), Offset::Pos(1)), (Offset::Pos(1), Offset::Pos(1))], 
+    [(Offset::Pos(0), Offset::Pos(0)), (Offset::Pos(1), Offset::Pos(0)), (Offset::Pos(1), Offset::Pos(1))], 
+    [(Offset::Pos(0), Offset::Pos(0)), (Offset::Pos(1), Offset::Pos(0)), (Offset::Pos(1), Offset::Neg(1))]];
+
 
 pub fn cover(board: [[i32; 10]; 8]) -> usize {
     match search_space(board) {
         None => 1,
-        Some((y, x)) => (0..4).map(|btype| 
-            match set(board, y, x, btype, 1, 0) { 
+        Some((y, x)) => (0..4)
+            .map(|btype| match set(board, y, x, btype, 1, 0) { 
                 None => 0, 
-                Some(new_board) => cover(new_board), 
-            }).sum() 
+                Some(new_board) => cover(new_board)
+            }) 
+            .sum() 
     }
 }
 
@@ -42,64 +37,37 @@ fn search_space(board: [[i32; 10]; 8]) -> Option<(usize, usize)> {
 
 
 fn set(board: [[i32; 10]; 8], 
-           y: usize, 
-           x: usize, 
-           btype: usize, 
-           delta: i32,
-           i: usize) -> Option<[[i32; 10]; 8]>{
+       y: usize, 
+       x: usize, 
+       btype: usize, 
+       delta: i32,
+       i: usize
+) -> Option<[[i32; 10]; 8]>{
 
-    if i >= 3 {
+    match i {
+        i if i >= 3 => Some(board),
+        i => {
+            let (ny, nx) = match COVERTYPE[btype][i] {
+                (Offset::Pos(dy), Offset::Pos(dx)) => (y.checked_add(dy), x.checked_add(dx)),
+                (Offset::Neg(dy), Offset::Pos(dx)) => (y.checked_sub(dy), x.checked_add(dx)),
+                (Offset::Pos(dy), Offset::Neg(dx)) => (y.checked_add(dy), x.checked_sub(dx)),
+                (Offset::Neg(dy), Offset::Neg(dx)) => (y.checked_sub(dy), x.checked_sub(dx)),
+            };
 
-        Some(board)
-
-    } else {
-
-        let (dy, dx) = COVERTYPE[btype][i];
-        let (ny, nx) = match (dy, dx) {
-            (Offset::Pos(dy), Offset::Pos(dx)) => (y.checked_add(dy), x.checked_add(dx)),
-            (Offset::Neg(dy), Offset::Pos(dx)) => (y.checked_sub(dy), x.checked_sub(dx)),
-            (Offset::Pos(dy), Offset::Neg(dx)) => (y.checked_add(dy), x.checked_sub(dx)),
-            (Offset::Neg(dy), Offset::Neg(dx)) => (y.checked_sub(dy), x.checked_sub(dx)),
-        };
-
-        match (ny, nx) {
-            (None, None) | (None, _) | (_, None) => return None,
-            (ny, nx) => if ny >= board.len() || nx >= board[0].len() {
-                None
-            } else if board[ny][nx] + delta > 1 {
-                None
-            } else {
-                let mut new_board = board.clone();
-                new_board[ny][nx] += 1;
-                set(new_board, y, x, btype, delta, i+1)
+            match (ny, nx) {
+                (None, None) | (None, _) | (_, None) => return None,
+                (Some(ny), Some(nx)) => match (ny, nx) {
+                    (ny, nx) if ny >= board.len() || nx >= board[0].len() => None,
+                    (ny, nx) if board[ny][nx] + delta > 1 => None,
+                    (ny, nx) => {
+                        let mut new_board = board.clone();
+                        new_board[ny][nx] += 1;
+                        set(new_board, y, x, btype, delta, i+1)
+                    }
+                }
             }
         }
-        /*
-        let (ny, nx) = match (dy, dx) {
-            (-1, dx) => match y {
-                y if y < 1 => return None,
-                _ => (y-1 as usize, x+dx as usize)
-            }
-            (dy, -1) => match x {
-                x if x < 1 => return None,
-                _ => (y+dy as usize, x-1 as usize)
-            },
-            (dy, dx) => (y+dy as usize, x+dx as usize),
-        };
-        */
-        /*
-
-        if ny >= board.len() || nx >= board[0].len() {
-            None
-        } else if board[ny][nx] + delta > 1 {
-            None
-        } else {
-            let mut new_board = board.clone();
-            new_board[ny][nx] += 1;
-            set(new_board, y, x, btype, delta, i+1)
-        }
-        */
-    } // if.. else
+    } // match i 
 }
 
 
