@@ -1,9 +1,15 @@
 
 ## Combination
 
+Search all of combinations of numbers in range of (0..n) </br>
+The number of elements in combination could be variable 
+
+**Example** </br>
+(1, 2, 3, 4), (1, 2, 3, 5), (1, 2, 3, 6) ... (5, 7, 8, 9), (6, 7, 8, 9) </br>
+when elements in combination = 4 and range of 1 to 9
 
 
-#### In Haskell
+#### Haskell
 
 
 ```haskell
@@ -25,7 +31,7 @@ pick n picked toPick = forM_ [smallest..n] $ \next ->
 ```
 
 
-#### In Rust
+#### Rust
 
 
 ```rust
