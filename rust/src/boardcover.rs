@@ -1,12 +1,22 @@
 
 
 
+/*
 const COVERTYPE: [[(i32, i32); 3]; 4] = [[(0, 0), (1, 0), (0, 1)],
                                          [(0, 0), (1, 0), (1, 1)],
                                          [(0, 0), (0, 1), (1, 1)],
                                          [(0, 0), (1, 0), (1,-1)]];
+                                         */
 
+enum Offset {
+    Neg(usize),
+    Pos(usize),
+}
 
+const COVERTYPE: [[(Offset, Offset); 3]; 4] = [[(Pos(0), Pos(0)), (Pos(1), Pos(0)), (Pos(0), Pos(1))],
+                                               [(Pos(0), Pos(0)), (Pos(0), Pos(0)), (Pos(1), Pos(1))],
+                                               [(Pos(0), Pos(0)), (Pos(0), Pos(1)), (Pos(1), Pos(1))],
+                                               [(Pos(0), Pos(0)), (Pos(1), Pos(0)), (Pos(1), Neg(1))]];
 
 pub fn cover(board: [[i32; 10]; 8]) -> usize {
     match search_space(board) {
@@ -46,6 +56,26 @@ fn set(board: [[i32; 10]; 8],
 
         let (dy, dx) = COVERTYPE[btype][i];
         let (ny, nx) = match (dy, dx) {
+            (Offset::Pos(dy), Offset::Pos(dx)) => (y.checked_add(dy), x.checked_add(dx)),
+            (Offset::Neg(dy), Offset::Pos(dx)) => (y.checked_sub(dy), x.checked_sub(dx)),
+            (Offset::Pos(dy), Offset::Neg(dx)) => (y.checked_add(dy), x.checked_sub(dx)),
+            (Offset::Neg(dy), Offset::Neg(dx)) => (y.checked_sub(dy), x.checked_sub(dx)),
+        };
+
+        match (ny, nx) {
+            (None, None) | (None, _) | (_, None) => return None,
+            (ny, nx) => if ny >= board.len() || nx >= board[0].len() {
+                None
+            } else if board[ny][nx] + delta > 1 {
+                None
+            } else {
+                let mut new_board = board.clone();
+                new_board[ny][nx] += 1;
+                set(new_board, y, x, btype, delta, i+1)
+            }
+        }
+        /*
+        let (ny, nx) = match (dy, dx) {
             (-1, dx) => match y {
                 y if y < 1 => return None,
                 _ => (y-1 as usize, x+dx as usize)
@@ -56,6 +86,8 @@ fn set(board: [[i32; 10]; 8],
             },
             (dy, dx) => (y+dy as usize, x+dx as usize),
         };
+        */
+        /*
 
         if ny >= board.len() || nx >= board[0].len() {
             None
@@ -66,6 +98,7 @@ fn set(board: [[i32; 10]; 8],
             new_board[ny][nx] += 1;
             set(new_board, y, x, btype, delta, i+1)
         }
+        */
     } // if.. else
 }
 
