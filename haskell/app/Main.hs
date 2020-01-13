@@ -6,6 +6,7 @@ import BoggleGame (hasWord)
 import Picnic (countPairings)
 import BoardCover (cover)
 import TravelingSales (shortestPath)
+import ClockAlign (solve)
 
 import Data.Time (getCurrentTime, diffUTCTime)
 import System.Environment
@@ -33,6 +34,8 @@ main = do
 
       ("TravelingSales":_) -> print $ 
           shortestPath [0] [True, False, False, False, False] 0
+      --("ClockAlign":_) -> print $ solve [12, 6, 6, 6, 6, 6, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12]
+      ("ClockAlign":_) -> print $ solve [12, 9, 3, 12, 6, 6, 9, 3, 12, 9, 12, 9, 12, 12, 6, 6]
 
       (_:_)                -> print $ "Invalid Input"
     
