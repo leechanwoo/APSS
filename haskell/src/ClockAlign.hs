@@ -1,7 +1,6 @@
 
 module ClockAlign where
 
-
 import Control.Monad
 import Debug.Trace
 
@@ -37,14 +36,10 @@ int2clock ( _:ints) = []
 solve :: [Int] -> Int
 solve clocks = solve' 0 (int2clock clocks)
 
-
 solve' :: Int -> Clocks -> Int
-solve' switch clocks 
-  | switch == 10 = if aligned clocks then 0 else 9999
-  | aligned clocks = trace ("aligned: " ++ show clocks) 0
-  | otherwise = minimum $ flip map [0..3] $ \cnt -> 
-      cnt + solve' (switch+1) (push switch cnt clocks)
-
+solve' 10     clocks = if aligned clocks then 0 else 9999
+solve' switch clocks = minimum $ flip map [0..3] $ \cnt -> 
+    cnt + solve' (switch+1) (push switch cnt clocks)
 
 push :: Switch -> Int -> Clocks -> Clocks
 push switch 0 clocks = clocks

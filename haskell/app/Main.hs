@@ -7,6 +7,10 @@ import Picnic (countPairings)
 import BoardCover (cover)
 import TravelingSales (shortestPath)
 import ClockAlign (solve)
+import FastSum (fastSum)
+import SquareMatrix (pow)
+import Data.Matrix
+import SimpleMul (simpleMul)
 
 import Data.Time (getCurrentTime, diffUTCTime)
 import System.Environment
@@ -19,27 +23,48 @@ main = do
     start <- getCurrentTime 
     case args of 
       []                   -> print $ "Nothing run"
-      ("Sum":_)            -> print $ recSum 100
+
+      ("Sum":_)            -> print $ 
+          recSum 9999999
+
       ("Combine":_)        -> pick 10 [] 3 
-      ("BoggleGame":_)     -> print $ hasWord 1 1 "PRETTY"
-      ("Picnic":_)         -> print $ countPairings (take 10 $ repeat False) 
-      ("BoardCover":_)     -> print $ cover [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-                                            ,[1, 0, 0, 0, 0, 0, 0, 0, 0, 1]
-                                            ,[1, 0, 0, 0, 0, 0, 0, 0, 0, 1]
-                                            ,[1, 0, 0, 0, 0, 0, 0, 0, 0, 1]
-                                            ,[1, 0, 0, 0, 0, 0, 0, 0, 0, 1]
-                                            ,[1, 0, 0, 0, 0, 0, 0, 0, 0, 1]
-                                            ,[1, 0, 0, 0, 0, 0, 0, 0, 0, 1]
-                                            ,[1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
+
+      ("BoggleGame":_)     -> print $ 
+          hasWord 1 1 "PRETTY"
+
+      ("Picnic":_)         -> print $ 
+          countPairings (take 10 $ repeat False) 
+
+      ("BoardCover":_)     -> print $ 
+          cover [[1,1,1,1,1,1,1,1,1,1] 
+               ,[1,0,0,0,0,0,0,0,0,1] 
+               ,[1,0,0,0,0,0,0,0,0,1] 
+               ,[1,0,0,0,0,0,0,0,0,1] 
+               ,[1,0,0,0,0,0,0,0,0,1] 
+               ,[1,0,0,0,0,0,0,0,0,1] 
+               ,[1,0,0,0,0,0,0,0,0,1] 
+               ,[1,1,1,1,1,1,1,1,1,1]]
 
       ("TravelingSales":_) -> print $ 
           shortestPath [0] [True, False, False, False, False] 0
-      --("ClockAlign":_) -> print $ solve [12, 6, 6, 6, 6, 6, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12]
-      ("ClockAlign":_) -> print $ solve [12, 9, 3, 12, 6, 6, 9, 3, 12, 9, 12, 9, 12, 12, 6, 6]
+
+      ("ClockAlign":_)     -> print $ 
+          solve [12,9,3,12,6,6,9,3,12,9,12,9,12,12,6,6]
+
+      ("FastSum":_)        -> print $ 
+          fastSum 9999999
+
+      ("SquareMatrix":_)   -> print $ 
+          pow 3 100 $ fromLists [[1, 0, 0] 
+                                ,[0, 1, 0] 
+                                ,[0, 0, 1]]
+
+      ("SimpleMul":_)   -> print $ 
+          simpleMul [1,2,3,4,5,6,7,8,9] [1,2,3,4,5,6,7,8,9]
 
       (_:_)                -> print $ "Invalid Input"
     
-    end <- getCurrentTime
+    end <- getCurrentTime 
     print $ "Process time: " ++ (show $ diffUTCTime end start)
 
 
