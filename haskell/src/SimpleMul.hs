@@ -2,6 +2,8 @@
 module SimpleMul where
 
 import Data.List
+import Debug.Trace
+import Data.Char
 
 chunks :: Int -> [Int] -> [[Int]]
 chunks _ [] = []
@@ -21,7 +23,10 @@ digitSum :: [[Int]] -> [Int]
 digitSum xs = map sum $ transpose xs
 
 digitSum' :: Int -> [Int] -> [Int]
-digitSum' _ [] = []
+digitSum' over [] 
+  | over == 0 = [] 
+  | over < 10 = [over] 
+  | otherwise = reverse . map digitToInt $ show over
 digitSum' over (x:xs) = one : digitSum' dec xs
     where dec = (x+over) `div` 10
           one = (x+over) `mod` 10

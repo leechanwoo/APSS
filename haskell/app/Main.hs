@@ -11,6 +11,7 @@ import FastSum (fastSum)
 import SquareMatrix (pow)
 import Data.Matrix
 import SimpleMul (simpleMul)
+import KaratsubaMul (karatsubaMul)
 
 import Data.Time (getCurrentTime, diffUTCTime)
 import System.Environment
@@ -37,13 +38,13 @@ main = do
 
       ("BoardCover":_)     -> print $ 
           cover [[1,1,1,1,1,1,1,1,1,1] 
-               ,[1,0,0,0,0,0,0,0,0,1] 
-               ,[1,0,0,0,0,0,0,0,0,1] 
-               ,[1,0,0,0,0,0,0,0,0,1] 
-               ,[1,0,0,0,0,0,0,0,0,1] 
-               ,[1,0,0,0,0,0,0,0,0,1] 
-               ,[1,0,0,0,0,0,0,0,0,1] 
-               ,[1,1,1,1,1,1,1,1,1,1]]
+                ,[1,0,0,0,0,0,0,0,0,1] 
+                ,[1,0,0,0,0,0,0,0,0,1] 
+                ,[1,0,0,0,0,0,0,0,0,1] 
+                ,[1,0,0,0,0,0,0,0,0,1] 
+                ,[1,0,0,0,0,0,0,0,0,1] 
+                ,[1,0,0,0,0,0,0,0,0,1] 
+                ,[1,1,1,1,1,1,1,1,1,1]]
 
       ("TravelingSales":_) -> print $ 
           shortestPath [0] [True, False, False, False, False] 0
@@ -60,7 +61,10 @@ main = do
                                 ,[0, 0, 1]]
 
       ("SimpleMul":_)   -> print $ 
-          simpleMul [1,2,3,4,5,6,7,8,9] [1,2,3,4,5,6,7,8,9]
+          simpleMul [1,2,3,4,5,6,7,8,9,0] [1,2,3,4,5,6,7,8,9,0]
+
+      ("KaratsubaMul":_)   -> print $ 
+          karatsubaMul [1,2,3,4,5,6,7,8,9,0] [1,2,3,4,5,6,7,8,9,0]
 
       (_:_)                -> print $ "Invalid Input"
     
