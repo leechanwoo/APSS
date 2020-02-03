@@ -1,4 +1,6 @@
 module Main where
+    
+import Control.Monad.Trans.State
 
 import Sum (recSum)
 import Combination (pick)
@@ -12,9 +14,11 @@ import SquareMatrix (pow)
 import Data.Matrix
 import SimpleMul (simpleMul)
 import KaratsubaMul (karatsubaMul)
+import QuadTreeFlip (decompress)
 
 import Data.Time (getCurrentTime, diffUTCTime)
 import System.Environment
+
 
 main :: IO ()
 main = do
@@ -60,11 +64,16 @@ main = do
                                 ,[0, 1, 0] 
                                 ,[0, 0, 1]]
 
-      ("SimpleMul":_)   -> print $ 
+      ("SimpleMul":_)      -> print $ 
           simpleMul [1,2,3,4,5,6,7,8,9,0] [1,2,3,4,5,6,7,8,9,0]
 
       ("KaratsubaMul":_)   -> print $ 
           karatsubaMul [1,2,3,4,5,6,7,8,9,0] [1,2,3,4,5,6,7,8,9,0]
+      
+      ("QuadTreeFlip":_)   -> do
+          print $ "xxwwwbxwxwbbbwwxxxwwbbbwwwwbb" 
+          mapM_ print $ evalState (decompress 16)  "xxwwwbxwxwbbbwwxxxwwbbbwwwwbb"
+
 
       (_:_)                -> print $ "Invalid Input"
     
