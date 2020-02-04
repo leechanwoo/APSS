@@ -14,7 +14,7 @@ import SquareMatrix (pow)
 import Data.Matrix
 import SimpleMul (simpleMul)
 import KaratsubaMul (karatsubaMul)
-import QuadTreeFlip (decompress)
+import QuadTreeFlip (decompress, flipCode)
 
 import Data.Time (getCurrentTime, diffUTCTime)
 import System.Environment
@@ -71,8 +71,12 @@ main = do
           karatsubaMul [1,2,3,4,5,6,7,8,9,0] [1,2,3,4,5,6,7,8,9,0]
       
       ("QuadTreeFlip":_)   -> do
-          print $ "xxwwwbxwxwbbbwwxxxwwbbbwwwwbb" 
-          mapM_ print $ evalState (decompress 16)  "xxwwwbxwxwbbbwwxxxwwbbbwwwwbb"
+          let code = "xxwwwbxwxwbbbwwxxxwwbbbwwwwbb"
+          print code
+          mapM_ print $ evalState (decompress 16) code
+          let code' = evalState flipCode code
+          print $ code'
+          mapM_ print $ evalState (decompress 16) code'
 
 
       (_:_)                -> print $ "Invalid Input"
