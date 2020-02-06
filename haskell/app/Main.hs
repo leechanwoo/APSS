@@ -15,6 +15,7 @@ import Data.Matrix
 import SimpleMul (simpleMul)
 import KaratsubaMul (karatsubaMul)
 import QuadTreeFlip (decompress, flipCode)
+import CuttingFence 
 
 import Data.Time (getCurrentTime, diffUTCTime)
 import System.Environment
@@ -77,6 +78,19 @@ main = do
           let code' = evalState flipCode code
           print $ code'
           mapM_ print $ evalState (decompress 16) code'
+
+      ("CuttingFence":_)   -> do 
+          let case1 = [7, 1, 5, 9, 6, 7, 3]
+          let case2 = [1, 4, 4, 4, 4, 1, 1]
+          let case3 = [1, 8, 2, 2]
+          print $ case1
+          print $ solveMax case1
+
+          print $ case2
+          print $ solveMax case2 
+
+          print $ case3
+          print $ solveMax case3 
 
 
       (_:_)                -> print $ "Invalid Input"

@@ -30,7 +30,7 @@ mergeCode c1 c2 c3 c4 = "x" ++ c3 ++ c4 ++ c1 ++ c2
 
 decompress :: Size -> State Code Image
 decompress size = read >>= \x -> 
-    case x of 'x' -> mergeImage 
+    case x of 'x' -> mergeImage  
                   <$> decompress hsize 
                   <*> decompress hsize 
                   <*> decompress hsize 
