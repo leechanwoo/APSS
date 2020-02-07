@@ -16,6 +16,7 @@ import SimpleMul (simpleMul)
 import KaratsubaMul (karatsubaMul)
 import QuadTreeFlip (decompress, flipCode)
 import CuttingFence 
+import FanMetting
 
 import Data.Time (getCurrentTime, diffUTCTime)
 import System.Environment
@@ -91,6 +92,16 @@ main = do
 
           print $ case3
           print $ solveMax case3 
+
+      ("FanMetting":_)     -> do
+          print $ hugs [0,0,0,1,1,1] [1,1,1,0,0,0]
+          print $ hugs [0, 0, 0, 0, 0] [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          print $ hugs [0, 0, 0, 0, 1] [0, 0, 0, 0, 0, 1, 1, 1, 1, 0]
+          print $ hugs [1,0,1,0,1,0,0,0,1,1,1,0,1,0] 
+                       [1,1,0,0,0,0,0,1,0,0,0,1,0
+                       ,0,0,0,0,0,1,0,0,0,1,0,0,0
+                       ,0,1,0,1,1,0,0,0,0,0,0,0]
+
 
 
       (_:_)                -> print $ "Invalid Input"
