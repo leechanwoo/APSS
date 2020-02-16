@@ -17,6 +17,8 @@ import KaratsubaMul (karatsubaMul)
 import QuadTreeFlip (decompress, flipCode)
 import CuttingFence 
 import FanMetting
+import FibonacciMemo 
+import JumpGame 
 
 import Data.Time (getCurrentTime, diffUTCTime)
 import System.Environment
@@ -93,7 +95,7 @@ main = do
           print $ case3
           print $ solveMax case3 
 
-      ("FanMetting":_)     -> do
+      ("FanMeeting":_)     -> do
           print $ hugs [0,0,0,1,1,1] [1,1,1,0,0,0]
           print $ hugs [0, 0, 0, 0, 0] [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
           print $ hugs [0, 0, 0, 0, 1] [0, 0, 0, 0, 0, 1, 1, 1, 1, 0]
@@ -102,6 +104,42 @@ main = do
                        ,0,0,0,0,0,1,0,0,0,1,0,0,0
                        ,0,1,0,1,1,0,0,0,0,0,0,0]
 
+
+      ("NaiveFibonacci":_) -> print $ naiveFib 50
+
+      ("MemoizationFibonacci":_) -> print $ fibMemo 50
+
+      ("NaiveJumpGame":_) -> do
+          let trueCase = [[2, 5, 1, 6, 1, 4, 1]
+                         ,[6, 1, 1, 2, 2, 9, 3]
+                         ,[7, 2, 3, 2, 1, 3, 1]
+                         ,[1, 1, 3, 1, 7, 1, 2]
+                         ,[4, 1, 2, 3, 4, 1, 2]
+                         ,[3, 3, 1, 2, 3, 4, 1]
+                         ,[1, 5, 2, 9, 4, 7, 0]]
+
+          let falseCase = [[2, 5, 1, 6, 1, 4, 1]
+                          ,[6, 1, 1, 2, 2, 9, 3]
+                          ,[7, 2, 3, 2, 1, 3, 1]
+                          ,[1, 1, 3, 1, 7, 1, 2]
+                          ,[4, 1, 2, 3, 4, 1, 3]
+                          ,[3, 3, 1, 2, 3, 4, 1]
+                          ,[1, 5, 2, 9, 4, 7, 0]]
+
+          let falseCase2 = [[1, 1, 1, 1, 1, 1, 1]
+                           ,[1, 1, 1, 1, 1, 1, 1]
+                           ,[1, 1, 1, 1, 1, 1, 1]
+                           ,[1, 1, 1, 1, 1, 1, 1]
+                           ,[1, 1, 1, 1, 1, 1, 1]
+                           ,[1, 1, 1, 1, 1, 1, 2]
+                           ,[1, 1, 1, 1, 1, 2, 0]]
+
+          print $ "True case:"
+          print $ jump trueCase
+          print $ "False case:"
+          print $ jump falseCase
+          print $ "Fasle case2:"
+          print $ jump falseCase2
 
 
       (_:_)                -> print $ "Invalid Input"
