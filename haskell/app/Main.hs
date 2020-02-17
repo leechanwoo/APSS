@@ -109,7 +109,7 @@ main = do
 
       ("MemoizationFibonacci":_) -> print $ fibMemo 50
 
-      ("NaiveJumpGame":_) -> do
+      ("JumpGame":_) -> do
           let trueCase = [[2, 5, 1, 6, 1, 4, 1]
                          ,[6, 1, 1, 2, 2, 9, 3]
                          ,[7, 2, 3, 2, 1, 3, 1]
@@ -134,12 +134,20 @@ main = do
                            ,[1, 1, 1, 1, 1, 1, 2]
                            ,[1, 1, 1, 1, 1, 2, 0]]
 
+          print $ "Naive Jump"
           print $ "True case:"
           print $ jump trueCase
           print $ "False case:"
           print $ jump falseCase
           print $ "Fasle case2:"
           print $ jump falseCase2
+          print $ "Memo Jump"
+          print $ "True case:"
+          print $ jumpMemo 0 0 trueCase 
+          print $ "False case:"
+          print $ jumpMemo 0 0 falseCase
+          print $ "Fasle case2:"
+          print $ jumpMemo 0 0 falseCase2
 
 
       (_:_)                -> print $ "Invalid Input"
