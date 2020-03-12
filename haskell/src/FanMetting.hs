@@ -11,4 +11,3 @@ hugs xs ys = length $ filter (==0) $ drop (members-1) . take fans $ allHug
           mul = (*) <$> reverse xs <*> ys
           allHug = digitSum . padZeros members . chunks fans $ mul
 
-

@@ -23,6 +23,7 @@ dependencies:
 - base >= 4.7 && < 5
 - matrix
 - transformers
+- split
 
 library:
   source-dirs: src

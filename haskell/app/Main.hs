@@ -19,6 +19,7 @@ import CuttingFence
 import FanMetting
 import FibonacciMemo 
 import JumpGame 
+import WildCard
 
 import Data.Time (getCurrentTime, diffUTCTime)
 import System.Environment
@@ -143,12 +144,28 @@ main = do
           print $ jump falseCase2
           print $ "Memo Jump"
           print $ "True case:"
-          print $ jumpMemo 0 0 trueCase 
+          print $ jMemo trueCase !! 0
           print $ "False case:"
-          print $ jumpMemo 0 0 falseCase
+          print $ jMemo falseCase !! 0 
           print $ "Fasle case2:"
-          print $ jumpMemo 0 0 falseCase2
+          print $ jMemo falseCase2 !! 0
 
+      ("WildCard":_)       -> do
+          putStr $ "he?p help -- True " 
+          print $ regex "he?p" "help"
+          putStr $ "he?p heap -- True " 
+          print $ regex "he?p" "heap"
+          putStr $ "he?p helpp -- False " 
+          print $ regex "he?p" "helpp"
+          putStr $ "*p* help -- True " 
+          print $ regex "*p" "help"
+          putStr $ "*p* papa -- True " 
+          print $ regex "*p*" "papa"
+          putStr $ "*p* hello -- False " 
+          print $ regex "*p*" "hello"
+          putStr $ "*bb* babbbc -- True " 
+          print $ regex "*bb*" "babbbc"
+          
 
       (_:_)                -> print $ "Invalid Input"
     
